@@ -53,7 +53,7 @@ class ContentBlockAttributeAdmin extends AbstractAdmin
      */
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->remove('show');
+        $collection->clearExcept('create', 'edit', 'delete');
     }
 
     /**
@@ -91,27 +91,9 @@ class ContentBlockAttributeAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        /** @var ContentBlockAttribute $contentBlockAttribute */
-        // $contentBlockAttribute = $this->getSubject();
-        // $container = $this->getConfigurationPool()->getContainer();
-        // $formMapper->with('Common', array('class' => 'col-md-6', 'name' => 'Common'))->end();
-        // $formMapper->with('Collection', array('class' => 'col-md-6', 'name' => 'Collection'))->end();
-
         $formMapper
             ->add('name')
             ->add('body')
         ;
     }
-
-    /**
-     * @param mixed $contentBlockAttribute
-     */
-    public function prePersist($contentBlockAttribute)
-    {}
-
-    /**
-     * @param mixed $contentBlockAttribute
-     */
-    public function preUpdate($contentBlockAttribute)
-    {}
 }

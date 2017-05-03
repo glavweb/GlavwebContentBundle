@@ -1,0 +1,30 @@
+filter:
+    label_id: ID
+    label_category: Category
+    label_name: Name
+    label_body: Body
+
+list:
+    label__action: Action
+    label_id: ID
+    label_category: Category
+    label_name: Name
+    label_body: Body
+
+form:
+    label_id: ID
+    label_category: Category
+    label_name: Name
+    label_body: Body
+
+dashboard:
+    label_content_block: Content blocks
+
+breadcrumb:
+    link_content_block_list: List of content blocks
+    link_content_block_create: Create
+    link_content_block_delete: Delete
+
+group:
+    label_block: Block
+    label_attributes: Attributes

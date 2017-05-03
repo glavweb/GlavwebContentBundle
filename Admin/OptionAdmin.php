@@ -93,11 +93,8 @@ class OptionAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        /** @var Option $option */
-        // $option = $this->getSubject();
-        // $container = $this->getConfigurationPool()->getContainer();
-        $formMapper->with('Common', array('class' => 'col-md-6', 'name' => 'Общее'))->end();
-        $formMapper->with('Value', array('class' => 'col-md-6', 'name' => 'Значение'))->end();
+        $formMapper->with('Common', array('class' => 'col-md-6', 'name' => $this->trans('group.label_common')))->end();
+        $formMapper->with('Value', array('class' => 'col-md-6', 'name' => $this->trans('group.label_value')))->end();
 
         $formMapper
             ->with('Common')
@@ -112,16 +109,4 @@ class OptionAdmin extends AbstractAdmin
             ->end()
         ;
     }
-
-    /**
-     * @param mixed $option
-     */
-    public function prePersist($option)
-    {}
-
-    /**
-     * @param mixed $option
-     */
-    public function preUpdate($option)
-    {}
 }

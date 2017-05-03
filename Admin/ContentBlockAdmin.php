@@ -91,11 +91,8 @@ class ContentBlockAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        /** @var ContentBlock $contentBlock */
-        // $contentBlock = $this->getSubject();
-        // $container = $this->getConfigurationPool()->getContainer();
-        $formMapper->with('Common', array('class' => 'col-md-6', 'name' => 'Блок'))->end();
-        $formMapper->with('Attributes', array('class' => 'col-md-6', 'name' => 'Аттрибуты'))->end();
+        $formMapper->with('Common', array('class' => 'col-md-6', 'name' => $this->trans('group.label_block')))->end();
+        $formMapper->with('Attributes', array('class' => 'col-md-6', 'name' => $this->trans('group.label_attributes')))->end();
 
         $contentOnly = $this->getRequest()->get('content_only');
 
@@ -133,16 +130,4 @@ class ContentBlockAdmin extends AbstractAdmin
             )
         ->end();
     }
-
-    /**
-     * @param mixed $contentBlock
-     */
-    public function prePersist($contentBlock)
-    {}
-
-    /**
-     * @param mixed $contentBlock
-     */
-    public function preUpdate($contentBlock)
-    {}
 }

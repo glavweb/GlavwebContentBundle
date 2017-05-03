@@ -17,12 +17,6 @@ form:
     label_name: Название
     label_value: Значение
 
-show:
-    label_id: ID контент блока
-    label_category: Категория
-    label_name: Название
-    label_value: Значение
-
 dashboard:
     label_option: Опции
 
@@ -30,6 +24,10 @@ breadcrumb:
     link_option_list: Список опций
     link_option_create: Создание
     link_option_delete: Удаление
+
+group:
+    label_common: Общее
+    label_value: Значение
 
 type:
     news : news

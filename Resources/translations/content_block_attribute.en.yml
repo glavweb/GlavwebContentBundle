@@ -1,0 +1,4 @@
+form:
+    label_id: ID attribute
+    label_name: Name
+    label_body: Body

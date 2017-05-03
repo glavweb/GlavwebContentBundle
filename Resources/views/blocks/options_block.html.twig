@@ -55,7 +55,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-options" aria-expanded="true" aria-controls="collapse-options" style="line-height: 30px;">
-                                Опции сайта
+                                {{ 'options_block.options_header'|trans }}
                             </a>
                         </div>
 
@@ -110,46 +110,46 @@
                     </table>
 
                     {% set listUrl = path('admin_content_option_list') %}
-                    <div class="options-list-link"><a href="{{ listUrl }}">Все опции</a></div>
+                    <div class="options-list-link"><a href="{{ listUrl }}">{{ 'options_block.list_options'|trans }}</a></div>
                 </div>
             </div>
         </div>
 
-        <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="headingThree">
-                <h4 class="panel-title">
-                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-html" aria-expanded="false" aria-controls="collapseThree">
-                        Вставить HTML код на все страницы сайта
-                    </a>
-                </h4>
-            </div>
-            <div id="collapse-html" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                <div class="panel-body">
-                    <form>
-                        <textarea style="width: 100%" rows="10"></textarea>
-                        <button type="submit" class="btn btn-success">Сохранить</button>
-                    </form>
-                </div>
-            </div>
-        </div>
+        {#<div class="panel panel-default">#}
+            {#<div class="panel-heading" role="tab" id="headingThree">#}
+                {#<h4 class="panel-title">#}
+                    {#<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-html" aria-expanded="false" aria-controls="collapseThree">#}
+                        {#Вставить HTML код на все страницы сайта#}
+                    {#</a>#}
+                {#</h4>#}
+            {#</div>#}
+            {#<div id="collapse-html" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">#}
+                {#<div class="panel-body">#}
+                    {#<form>#}
+                        {#<textarea style="width: 100%" rows="10"></textarea>#}
+                        {#<button type="submit" class="btn btn-success">Сохранить</button>#}
+                    {#</form>#}
+                {#</div>#}
+            {#</div>#}
+        {#</div>#}
 
-        <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="headingThree">
-                <h4 class="panel-title">
-                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-javascript" aria-expanded="false" aria-controls="collapseThree">
-                        Вставить JavaScript на все страницы сайта
-                    </a>
-                </h4>
-            </div>
-            <div id="collapse-javascript" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                <div class="panel-body">
-                    <form>
-                        <textarea style="width: 100%" rows="10"></textarea>
-                        <button type="submit" class="btn btn-success">Сохранить</button>
-                    </form>
-                </div>
-            </div>
-        </div>
+        {#<div class="panel panel-default">#}
+            {#<div class="panel-heading" role="tab" id="headingThree">#}
+                {#<h4 class="panel-title">#}
+                    {#<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-javascript" aria-expanded="false" aria-controls="collapseThree">#}
+                        {#Вставить JavaScript на все страницы сайта#}
+                    {#</a>#}
+                {#</h4>#}
+            {#</div>#}
+            {#<div id="collapse-javascript" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">#}
+                {#<div class="panel-body">#}
+                    {#<form>#}
+                        {#<textarea style="width: 100%" rows="10"></textarea>#}
+                        {#<button type="submit" class="btn btn-success">Сохранить</button>#}
+                    {#</form>#}
+                {#</div>#}
+            {#</div>#}
+        {#</div>#}
 
     </div>
 

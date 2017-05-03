@@ -17,14 +17,14 @@ form:
     label_name: Назвние
     label_body: Содержание
 
-show:
-    label_id: ID
-    label_category: Категория
-    label_name: Назвние
-    label_body: Содержание
-
 dashboard:
     label_content_block: Текстовые блоки
+    link_option_create: Создание
+    link_option_delete: Удаление
 
 breadcrumb:
     link_content_block_list: Список текстовых блоков
+
+group:
+    label_block: Блок
+    label_attributes: Аттрибуты

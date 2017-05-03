@@ -1,0 +1,35 @@
+filter:
+    label_id: ID
+    label_category: Category
+    label_name: Name
+    label_value: Value
+
+list:
+    label__action: Action
+    label_id: ID
+    label_category: Category
+    label_name: Name
+    label_value: Value
+
+form:
+    label_id: ID
+    label_category: Category
+    label_name: Name
+    label_value: Value
+
+dashboard:
+    label_option: Options
+
+breadcrumb:
+    link_option_list: List of options
+    link_option_create: Create
+    link_option_delete: Delete
+
+group:
+    label_common: Common
+    label_value: Value
+
+type:
+    news : news
+    photo_report : photo_report
+    article : article
