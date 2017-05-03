@@ -1,0 +1,156 @@
+{% extends sonata_block.templates.block_base %}
+
+{% block block %}
+    <script>
+        (function ($) {
+            function OptionsBlock(wrapper) {
+                this.ui = {
+                    select   : wrapper.find('.js-options-select'),
+                    options  : wrapper.find('[data-options-category]'),
+                    collapse : wrapper.find('#collapse-options')
+                };
+
+                this.defineListeners();
+                this.showCategoryOptions('default');
+            }
+
+            OptionsBlock.prototype.defineListeners = function () {
+                var self = this;
+
+                this.ui.select.on('change', function () {
+                    var category = $(this).val();
+
+                    self.showCategoryOptions(category, true);
+                });
+            };
+
+            OptionsBlock.prototype.showCategoryOptions = function (category, openCollapse = false) {
+                this.ui.options.hide();
+
+                $('[data-options-category="' + category + '"]').show();
+
+                if (openCollapse) {
+                    this.ui.collapse.collapse('show');
+                }
+            };
+
+            $.fn.optionsBlock = function () {
+                return new OptionsBlock(this);
+            };
+        })(jQuery);
+
+        (function ($) {
+            $(document).ready(function () {
+                $('.js-options-block').optionsBlock();
+            });
+        })(jQuery);
+
+
+    </script>
+
+    <div class="js-options-block content-panel panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default panel-options">
+            <div class="panel-heading" role="tab" id="heading-options">
+                <h4 class="panel-title">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-options" aria-expanded="true" aria-controls="collapse-options" style="line-height: 30px;">
+                                Опции сайта
+                            </a>
+                        </div>
+
+                        <div class="col-md-8">
+                            <form>
+                                <select class="js-options-select form-control">
+                                    {% for category in categories %}
+                                        <option>{{ category }}</option>
+                                    {% endfor %}
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                </h4>
+            </div>
+
+            <div id="collapse-options" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading-options">
+                <div class="panel-body table-responsive">
+                    <table class="js-options table table-striped">
+                        {% for option in options %}
+                            {% set editUrl = path('admin_content_option_edit', {'id' : option.id}) %}
+
+                            <tr data-options-category="{{ option.category }}">
+                                <td>{{ option.category }}</td>
+                                <td>
+                                    {% set editableUrl = path('sonata_admin_set_object_field_value', {
+                                        context  : 'list',
+                                        field    : 'name',
+                                        objectId : option.id,
+                                        code     : 'option'
+                                    }) %}
+
+                                    <span class="x-editable editable editable-click" data-type="text" data-value="{{ option.name }}" data-title="Название" data-pk="{{ option.id }}" data-url="{{ editableUrl }}">
+                                        {{ option.name }}
+                                    </span>
+                                </td>
+                                <td>
+                                    {% set editableUrl = path('sonata_admin_set_object_field_value', {
+                                        context  : 'list',
+                                        field    : 'value',
+                                        objectId : option.id,
+                                        code     : 'option'
+                                    }) %}
+
+                                    <span class="x-editable editable editable-click" data-type="text" data-value="{{ option.value }}" data-title="Значение" data-pk="{{ option.id }}" data-url="{{ editableUrl }}">
+                                        {{ option.value }}
+                                    </span>
+                                </td>
+                                <td><a href="{{ editUrl }}"><span class="fa fa-pencil"></span></a></td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+
+                    {% set listUrl = path('admin_content_option_list') %}
+                    <div class="options-list-link"><a href="{{ listUrl }}">Все опции</a></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingThree">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-html" aria-expanded="false" aria-controls="collapseThree">
+                        Вставить HTML код на все страницы сайта
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse-html" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                <div class="panel-body">
+                    <form>
+                        <textarea style="width: 100%" rows="10"></textarea>
+                        <button type="submit" class="btn btn-success">Сохранить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingThree">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-javascript" aria-expanded="false" aria-controls="collapseThree">
+                        Вставить JavaScript на все страницы сайта
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse-javascript" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                <div class="panel-body">
+                    <form>
+                        <textarea style="width: 100%" rows="10"></textarea>
+                        <button type="submit" class="btn btn-success">Сохранить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

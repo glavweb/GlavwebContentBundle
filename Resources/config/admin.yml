@@ -1,0 +1,25 @@
+services:
+    content_block:
+        class: Glavweb\ContentBundle\Admin\ContentBlockAdmin
+        arguments: [~, Glavweb\ContentBundle\Entity\ContentBlock, GlavwebCmsCoreBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: label_group_content, label: dashboard.label_content_block, label_translator_strategy: "sonata.admin.label.strategy.underscore"}
+        calls:
+            - [ setTranslationDomain, ["content_block"]]
+
+    content_block_attribute:
+        class: Glavweb\ContentBundle\Admin\ContentBlockAttributeAdmin
+        arguments: [~, Glavweb\ContentBundle\Entity\ContentBlockAttribute, GlavwebCmsCoreBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: none, label: dashboard.label_content_block_attribute, label_translator_strategy: "sonata.admin.label.strategy.underscore"}
+        calls:
+            - [ setTranslationDomain, ["content_block_attribute"]]
+
+    option:
+        class: Glavweb\ContentBundle\Admin\OptionAdmin
+        arguments: [~, Glavweb\ContentBundle\Entity\Option, GlavwebCmsCoreBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: label_group_content, label: dashboard.label_option, label_translator_strategy: "sonata.admin.label.strategy.underscore"}
+        calls:
+            - [ setTranslationDomain, ["option"]]
+

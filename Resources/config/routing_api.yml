@@ -1,0 +1,7 @@
+cms_content_block_api:
+    type:     annotation
+    resource: "@GlavwebContentBundle/Controller/Api/ContentBlockApiController.php"
+
+cms_option_api:
+    type:     annotation
+    resource: "@GlavwebContentBundle/Controller/Api/OptionApiController.php"

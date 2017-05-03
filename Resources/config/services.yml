@@ -1,0 +1,6 @@
+services:
+    glavweb_cms_content.block.content_options:
+        class: Glavweb\ContentBundle\Block\OptionsBlockService
+        arguments: [ "glavweb_cms_content.block.content_options", "@templating", "@doctrine" ]
+        tags:
+            - { name: sonata.block }
