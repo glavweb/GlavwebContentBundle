@@ -15,6 +15,7 @@ form:
     label_id: ID
     label_category: Category
     label_name: Name
+    label_wysiwyg: WYSIWYG
     label_body: Body
 
 dashboard:

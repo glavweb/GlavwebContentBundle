@@ -1,0 +1,22 @@
+{% extends sonata_block.templates.block_base %}
+
+{% block block %}
+    <div class="panel-group">
+
+        {% for contentBlock in contentBlocks %}
+            <div class="panel panel-default" style="margin-bottom: 10px">
+                <div class="panel-body">
+                    <span style="display: inline-block; padding: 4px 8px; font-weight: 700; font-size: 12px; margin-right: 5px; color: #fff; background-color: #337ab7;">{{ contentBlock.category }}: {{ contentBlock.name }}</span>
+                    {{ contentBlock.body|raw }}
+                    <a href="{{ path('admin_content_block_edit', {'id' : contentBlock.id}) }}" style="padding: 7px"><span class="fa fa-pencil"></span></a>
+                </div>
+            </div>
+        {% endfor %}
+
+        <div class="panel panel-default" style="margin-bottom: 10px">
+            <div class="panel-body">
+                <a href="{{ path('admin_content_block_list') }}">Все блоки</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

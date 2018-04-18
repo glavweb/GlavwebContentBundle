@@ -12,11 +12,13 @@
 namespace Glavweb\ContentBundle\Admin;
 
 use Glavweb\CmsCoreBundle\Admin\AbstractAdmin;
+use Glavweb\ContentBundle\Entity\ContentBlock;
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
-use Glavweb\ContentBundle\Entity\ContentBlock;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 /**
  * Class ContentBlockAdmin
@@ -38,7 +40,7 @@ class ContentBlockAdmin extends AbstractAdmin
      *
      * @var string
      */
-    protected $baseRouteName = 'content_block';
+    protected $baseRouteName = 'admin_content_block';
 
     /**
      * {@inheritdoc}
@@ -46,6 +48,8 @@ class ContentBlockAdmin extends AbstractAdmin
     public function configure()
     {
         $this->formOptions['translation_domain'] = $this->getTranslationDomain();
+
+        $this->setTemplate('list', 'GlavwebContentBundle:admin/content_block:list.html.twig');
     }
 
     /**
@@ -76,13 +80,12 @@ class ContentBlockAdmin extends AbstractAdmin
         $listMapper
             ->add('category')
             ->add('name')
-            ->add('body')
-            ->add('_action', 'actions', array(
-                'actions' => array(
-                    'edit' => array(),
-                    'delete' => array(),
-                )
-            ))
+            ->add('_action', 'actions', [
+                'actions' => [
+                    'edit' => [],
+                    'delete' => [],
+                ]
+            ])
         ;
     }
 
@@ -91,42 +94,47 @@ class ContentBlockAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper->with('Common', array('class' => 'col-md-6', 'name' => $this->trans('group.label_block')))->end();
-        $formMapper->with('Attributes', array('class' => 'col-md-6', 'name' => $this->trans('group.label_attributes')))->end();
+        $formMapper->with('default', ['class' => 'col-md-7 header-hidden', 'label' => ''])->end();
+        $formMapper->with('attributes', ['class' => 'col-md-5', 'label' => $this->trans('group.label_attributes')])->end();
+
+        /** @var ContentBlock $contentBlock */
+        $contentBlock = $this->getSubject();
 
         $contentOnly = $this->getRequest()->get('content_only');
+        $bodyType = $contentBlock->getWysiwyg() ? CKEditorType::class : TextareaType::class;
 
         if (!$contentOnly) {
             $formMapper
-                ->with('Common')
+                ->with('default')
                     ->add('category')
                     ->add('name')
+                    ->add('wysiwyg')
                 ->end()
             ;
         }
 
-        $formMapper->with('Common')
-            ->add('body', null, [
+        $formMapper->with('default')
+            ->add('body', $bodyType, [
                 'attr' => ['rows' => 6]
             ])
         ->end();
 
-        $formMapper->with('Attributes')
+        $formMapper->with('attributes')
             ->add('attributes', 'sonata_type_collection',
-                array(
+                [
                     'required'     => false,
                     'by_reference' => false,
                     'label'        => false,
-                    'type_options' => array(
+                    'type_options' => [
                         'delete'   => true,
                         'required' => true,
-                    ),
-                ),
-                array(
+                    ],
+                ],
+                [
                     'edit'         => 'inline',
                     'inline'       => 'table',
                     'allow_delete' => true,
-                )
+                ]
             )
         ->end();
     }

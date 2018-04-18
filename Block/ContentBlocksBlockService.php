@@ -11,8 +11,8 @@
 
 namespace Glavweb\ContentBundle\Block;
 
-use Glavweb\ContentBundle\Entity\Option;
 use Doctrine\Bundle\DoctrineBundle\Registry;
+use Glavweb\ContentBundle\Entity\ContentBlock;
 use Sonata\BlockBundle\Block\BlockContextInterface;
 use Sonata\BlockBundle\Block\Service\AbstractAdminBlockService;
 use Sonata\BlockBundle\Model\BlockInterface;
@@ -22,12 +22,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class OptionsBlockService
+ * Class ContentBlocksBlockService
  *
  * @package Glavweb\ContentBundle\Block
  * @author Andrey Nilov <nilov@glavweb.ru>
  */
-class OptionsBlockService extends AbstractAdminBlockService
+class ContentBlocksBlockService extends AbstractAdminBlockService
 {
     /**
      * @var Registry
@@ -54,21 +54,12 @@ class OptionsBlockService extends AbstractAdminBlockService
     public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
         $em = $this->doctrine->getManager();
-        $options    = $em->getRepository(Option::class)->findAll();
-
-        $categories = [];
-        foreach ($options as $option) {
-            $category = $option->getCategory();
-            if (!in_array($category, $categories)) {
-                $categories[] = $category;
-            }
-        }
+        $contentBlocks = $em->getRepository(ContentBlock::class)->findBy([], ['id' => 'ASC'], 10);
 
         return $this->renderResponse($blockContext->getTemplate(), array(
-            'options'    => $options,
-            'categories' => $categories,
-            'block'      => $blockContext->getBlock(),
-            'settings'   => $blockContext->getSettings()
+            'contentBlocks' => $contentBlocks,
+            'block'         => $blockContext->getBlock(),
+            'settings'      => $blockContext->getSettings()
         ), $response);
     }
 
@@ -78,7 +69,7 @@ class OptionsBlockService extends AbstractAdminBlockService
     public function configureSettings(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'template'   => 'GlavwebContentBundle:blocks:options_block.html.twig',
+            'template'   => 'GlavwebContentBundle:blocks:content_blocks_block.html.twig',
             'isExternal' => true
         ));
     }

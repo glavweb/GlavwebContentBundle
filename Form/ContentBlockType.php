@@ -32,6 +32,7 @@ class ContentBlockType extends AbstractType
         $builder
             ->add('category')
             ->add('name')
+            ->add('wysiwyg')
             ->add('body')
         ;
     }

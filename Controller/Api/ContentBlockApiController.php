@@ -12,7 +12,6 @@
 namespace Glavweb\ContentBundle\Controller\Api;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\FormInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -65,6 +64,7 @@ class ContentBlockApiController extends GlavwebRestController
      *
      * @Rest\QueryParam(name="category", nullable=true, description="Category")
      * @Rest\QueryParam(name="name", nullable=true, description="Name")
+     * @Rest\QueryParam(name="wysiwyg", nullable=true, description="WYSIWYG")
      * @Rest\QueryParam(name="body", nullable=true, description="Body")
      *
      * @param ParamFetcherInterface $paramFetcher
@@ -89,6 +89,7 @@ class ContentBlockApiController extends GlavwebRestController
         $datagridBuilder
             ->addFilter('category')
             ->addFilter('name')
+            ->addFilter('wysiwyg')
             ->addFilter('body')
         ;
 

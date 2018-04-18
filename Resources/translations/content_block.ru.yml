@@ -15,6 +15,7 @@ form:
     label_id: ID
     label_category: Категория
     label_name: Назвние
+    label_wysiwyg: WYSIWYG
     label_body: Содержание
 
 dashboard:

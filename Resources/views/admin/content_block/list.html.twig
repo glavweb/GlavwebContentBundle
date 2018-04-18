@@ -1,0 +1,11 @@
+{% extends 'GlavwebCmsCoreBundle::sonata_admin_list.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style>
+        tr.sonata-ba-list-field-header th:nth-child(2) {
+            width: 250px;
+        }
+    </style>
+{% endblock %}

@@ -54,14 +54,21 @@ class ContentBlock
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, options={"comment": "Название"})
+     * @ORM\Column(name="name", type="string", length=255, options={"comment": "Name"})
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="body", type="text", options={"comment": "Содержание"})
+     * @ORM\Column(name="wysiwyg", type="boolean",options={"comment": "Is wysiwyg type?"})
+     */
+    private $wysiwyg = false;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="body", type="text", options={"comment": "Body"})
      */
     private $body;
 
@@ -144,6 +151,30 @@ class ContentBlock
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Get wysiwyg
+     *
+     * @return boolean
+     */
+    public function getWysiwyg()
+    {
+        return $this->wysiwyg;
+    }
+
+    /**
+     * Set wysiwyg
+     *
+     * @param boolean $wysiwyg
+     *
+     * @return ContentBlock
+     */
+    public function setWysiwyg($wysiwyg)
+    {
+        $this->wysiwyg = $wysiwyg;
+
+        return $this;
     }
 
     /**
