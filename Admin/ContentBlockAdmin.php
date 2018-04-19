@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the "GlavwebContentBlockAdmin" package.
+ * This file is part of the "GlavwebContentBundle" package.
  *
  * (c) GLAVWEB <info@glavweb.ru>
  *
@@ -12,12 +12,20 @@
 namespace Glavweb\ContentBundle\Admin;
 
 use Glavweb\CmsCoreBundle\Admin\AbstractAdmin;
+use Glavweb\ContentBundle\Event\ContentBlock\PostPersistEvent;
+use Glavweb\ContentBundle\Event\ContentBlock\PostRemoveEvent;
+use Glavweb\ContentBundle\Event\ContentBlock\PostUpdateEvent;
+use Glavweb\ContentBundle\Event\ContentBlock\PrePersistEvent;
+use Glavweb\ContentBundle\Event\ContentBlock\PreRemoveEvent;
+use Glavweb\ContentBundle\Event\ContentBlock\PreUpdateEvent;
+use Glavweb\ContentBundle\ContentBlockEvents;
 use Glavweb\ContentBundle\Entity\ContentBlock;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 /**
@@ -137,5 +145,86 @@ class ContentBlockAdmin extends AbstractAdmin
                 ]
             )
         ->end();
+    }
+
+    /**
+     * @param object $object
+     */
+    public function prePersist($object)
+    {
+        if (!$object instanceof ContentBlock) {
+            throw new \RuntimeException('The $object must be instance of ContentBlock.');
+        }
+
+        $this->eventDispatcher()->dispatch(ContentBlockEvents::PRE_PERSIST, new PrePersistEvent($object));
+    }
+
+    /**
+     * @param object $object
+     */
+    public function preUpdate($object)
+    {
+        if (!$object instanceof ContentBlock) {
+            throw new \RuntimeException('The $object must be instance of ContentBlock.');
+        }
+
+        $this->eventDispatcher()->dispatch(ContentBlockEvents::PRE_UPDATE, new PreUpdateEvent($object));
+    }
+
+
+    /**
+     * @param object $object
+     */
+    public function postPersist($object)
+    {
+        if (!$object instanceof ContentBlock) {
+            throw new \RuntimeException('The $object must be instance of ContentBlock.');
+        }
+
+        $this->eventDispatcher()->dispatch(ContentBlockEvents::POST_PERSIST, new PostPersistEvent($object));
+    }
+
+    /**
+     * @param object $object
+     */
+    public function postUpdate($object)
+    {
+        if (!$object instanceof ContentBlock) {
+            throw new \RuntimeException('The $object must be instance of ContentBlock.');
+        }
+
+        $this->eventDispatcher()->dispatch(ContentBlockEvents::POST_UPDATE, new PostUpdateEvent($object));
+    }
+
+    /**
+     * @param object $object
+     */
+    public function preRemove($object)
+    {
+        if (!$object instanceof ContentBlock) {
+            throw new \RuntimeException('The $object must be instance of ContentBlock.');
+        }
+
+        $this->eventDispatcher()->dispatch(ContentBlockEvents::PRE_REMOVE, new PreRemoveEvent($object));
+    }
+
+    /**
+     * @param object $object
+     */
+    public function postRemove($object)
+    {
+        if (!$object instanceof ContentBlock) {
+            throw new \RuntimeException('The $object must be instance of ContentBlock.');
+        }
+
+        $this->eventDispatcher()->dispatch(ContentBlockEvents::POST_REMOVE, new PostRemoveEvent($object));
+    }
+
+    /**
+     * @return object|\Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher|\Symfony\Component\HttpKernel\Debug\TraceableEventDispatcher
+     */
+    protected function eventDispatcher()
+    {
+        return $this->getContainer()->get('event_dispatcher');
     }
 }

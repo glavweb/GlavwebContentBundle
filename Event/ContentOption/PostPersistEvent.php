@@ -9,15 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Glavweb\ContentBundle;
-
-use Symfony\Component\HttpKernel\Bundle\Bundle;
+namespace Glavweb\ContentBundle\Event\ContentOption;
 
 /**
- * Class GlavwebContentBundle
+ * Class PostPersistEvent
  *
  * @package Glavweb\ContentBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  */
-class GlavwebContentBundle extends Bundle
+class PostPersistEvent extends AbstractEvent
 {}

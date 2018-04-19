@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the "GlavwebContentBlockAdmin" package.
+ * This file is part of the "GlavwebContentBundle" package.
  *
  * (c) GLAVWEB <info@glavweb.ru>
  *
@@ -16,7 +16,6 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
-use Glavweb\ContentBundle\Entity\ContentBlockAttribute;
 
 /**
  * Class ContentBlockAttributeAdmin

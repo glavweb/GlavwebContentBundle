@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the "GlavwebContentBlockAdmin" package.
+ * This file is part of the "GlavwebContentBundle" package.
  *
  * (c) GLAVWEB <info@glavweb.ru>
  *

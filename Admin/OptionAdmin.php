@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the "GlavwebContentBlockAdmin" package.
+ * This file is part of the "GlavwebContentBundle" package.
  *
  * (c) GLAVWEB <info@glavweb.ru>
  *
@@ -12,11 +12,19 @@
 namespace Glavweb\ContentBundle\Admin;
 
 use Glavweb\CmsCoreBundle\Admin\AbstractAdmin;
+use Glavweb\ContentBundle\Event\ContentOption\PostPersistEvent;
+use Glavweb\ContentBundle\Event\ContentOption\PostRemoveEvent;
+use Glavweb\ContentBundle\Event\ContentOption\PostUpdateEvent;
+use Glavweb\ContentBundle\Event\ContentOption\PrePersistEvent;
+use Glavweb\ContentBundle\Event\ContentOption\PreRemoveEvent;
+use Glavweb\ContentBundle\Event\ContentOption\PreUpdateEvent;
+use Glavweb\ContentBundle\ContentOptionEvents;
+use Glavweb\ContentBundle\Entity\Option;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
-use Glavweb\ContentBundle\Entity\Option;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 
 /**
  * Class OptionAdmin
@@ -108,5 +116,86 @@ class OptionAdmin extends AbstractAdmin
                 ])
             ->end()
         ;
+    }
+
+    /**
+     * @param object $object
+     */
+    public function prePersist($object)
+    {
+        if (!$object instanceof Option) {
+            throw new \RuntimeException('The $object must be instance of Option.');
+        }
+
+        $this->eventDispatcher()->dispatch(ContentOptionEvents::PRE_PERSIST, new PrePersistEvent($object));
+    }
+
+    /**
+     * @param object $object
+     */
+    public function preUpdate($object)
+    {
+        if (!$object instanceof Option) {
+            throw new \RuntimeException('The $object must be instance of Option.');
+        }
+
+        $this->eventDispatcher()->dispatch(ContentOptionEvents::PRE_UPDATE, new PreUpdateEvent($object));
+    }
+
+
+    /**
+     * @param object $object
+     */
+    public function postPersist($object)
+    {
+        if (!$object instanceof Option) {
+            throw new \RuntimeException('The $object must be instance of Option.');
+        }
+
+        $this->eventDispatcher()->dispatch(ContentOptionEvents::POST_PERSIST, new PostPersistEvent($object));
+    }
+
+    /**
+     * @param object $object
+     */
+    public function postUpdate($object)
+    {
+        if (!$object instanceof Option) {
+            throw new \RuntimeException('The $object must be instance of Option.');
+        }
+
+        $this->eventDispatcher()->dispatch(ContentOptionEvents::POST_UPDATE, new PostUpdateEvent($object));
+    }
+
+    /**
+     * @param object $object
+     */
+    public function preRemove($object)
+    {
+        if (!$object instanceof Option) {
+            throw new \RuntimeException('The $object must be instance of Option.');
+        }
+
+        $this->eventDispatcher()->dispatch(ContentOptionEvents::PRE_REMOVE, new PreRemoveEvent($object));
+    }
+
+    /**
+     * @param object $object
+     */
+    public function postRemove($object)
+    {
+        if (!$object instanceof Option) {
+            throw new \RuntimeException('The $object must be instance of Option.');
+        }
+
+        $this->eventDispatcher()->dispatch(ContentOptionEvents::POST_REMOVE, new PostRemoveEvent($object));
+    }
+
+    /**
+     * @return object|\Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher|\Symfony\Component\HttpKernel\Debug\TraceableEventDispatcher
+     */
+    protected function eventDispatcher()
+    {
+        return $this->getContainer()->get('event_dispatcher');
     }
 }
