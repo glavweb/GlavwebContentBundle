@@ -25,7 +25,6 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 /**
@@ -66,6 +65,18 @@ class ContentBlockAdmin extends AbstractAdmin
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection->remove('show');
+    }
+
+    /**
+     * @return array
+     */
+    public function getPersistentParameters()
+    {
+        $request = $this->getRequest();
+
+        return [
+            'content_only' => $request->get('content_only')
+        ];
     }
 
     /**
