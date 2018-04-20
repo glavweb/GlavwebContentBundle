@@ -127,12 +127,12 @@ class ContentBlockAdmin extends AbstractAdmin
                 ->with('default')
                     ->add('category')
                     ->add('name')
-                    ->add('wysiwyg')
                 ->end()
             ;
         }
 
         $formMapper->with('default')
+            ->add('wysiwyg')
             ->add('body', $bodyType, [
                 'attr' => ['rows' => 6]
             ])
