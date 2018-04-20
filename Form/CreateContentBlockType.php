@@ -11,18 +11,19 @@
 
 namespace Glavweb\ContentBundle\Form;
 
-use Glavweb\ContentBundle\Entity\Option;
+use Glavweb\ContentBundle\Entity\ContentBlock;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class OptionType
+ * Class CreateContentBlockType
  *
  * @package Glavweb\ContentBundle\Form
  * @author Andrey Nilov <nilov@glavweb.ru>
  */
-class OptionType extends AbstractType
+class CreateContentBlockType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -33,7 +34,10 @@ class OptionType extends AbstractType
         $builder
             ->add('category')
             ->add('name')
-            ->add('value')
+            ->add('wysiwyg', ChoiceType::class, [
+                'choices' => ['true' => true, 'false' => false]
+            ])
+            ->add('body')
         ;
     }
     
@@ -43,7 +47,7 @@ class OptionType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => Option::class
+            'data_class' => ContentBlock::class
         ));
     }
 }

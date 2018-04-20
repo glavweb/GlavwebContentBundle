@@ -25,7 +25,8 @@ use Glavweb\RestBundle\Scope\ScopeFetcherInterface;
 use Glavweb\DatagridBundle\Filter\Doctrine\Filter;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Glavweb\ContentBundle\Entity\ContentBlock;
-use Glavweb\ContentBundle\Form\ContentBlockType as ContentBlockFormType;
+use Glavweb\ContentBundle\Form\CreateContentBlockType;
+use Glavweb\ContentBundle\Form\UpdateBlockFormType;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
@@ -190,7 +191,7 @@ class ContentBlockApiController extends GlavwebRestController
      * @ApiDoc(
      *     views={"default", "content-block"},
      *     section="ContentBlock API",
-     *     input={"class"="Glavweb\ContentBundle\Form\ContentBlockType", "name"=""},
+     *     input={"class"="Glavweb\ContentBundle\Form\CreateContentBlockType", "name"=""},
      *     statusCodes={
      *         201="Returned when successful",
      *         400="Returned when an error has occurred",
@@ -206,7 +207,7 @@ class ContentBlockApiController extends GlavwebRestController
      */
     public function createContentBlockAction(Request $request)
     {
-        $formType = new ContentBlockFormType();
+        $formType = new CreateContentBlockType();
         $contentBlock = new ContentBlock();
 
         $restFormAction = $this->get('glavweb_rest.form_action');
@@ -234,7 +235,7 @@ class ContentBlockApiController extends GlavwebRestController
      * @ApiDoc(
      *     views={"default", "content-block"},
      *     section="ContentBlock API",
-     *     input={"class"="Glavweb\ContentBundle\Form\ContentBlockType", "name"=""},
+     *     input={"class"="Glavweb\ContentBundle\Form\UpdateBlockFormType", "name"=""},
      *     statusCodes={
      *         200="Returned when successful",
      *         204="Returned when successful",
@@ -246,6 +247,9 @@ class ContentBlockApiController extends GlavwebRestController
      *
      * @Route("content-blocks", name="api_content_block_put_content_block", defaults={"_format": "json"}, methods={"PUT"})
      * @Route("content-blocks", name="api_content_block_patch_content_block", defaults={"_format": "json", "isPatch": true}, methods={"PATCH"})
+     *
+     * @Rest\RequestParam(name="category", allowBlank=false, description="Category")
+     * @Rest\RequestParam(name="name", allowBlank=false, description="Name")
      *
      * @param Request $request
      * @param bool    $isPatch
@@ -269,7 +273,7 @@ class ContentBlockApiController extends GlavwebRestController
             throw $this->createNotFoundException();
         }
 
-        $formType = new ContentBlockFormType();
+        $formType = new UpdateBlockFormType();
 
         $restFormAction = $this->get('glavweb_rest.form_action');
         $actionResponse = $restFormAction->execute(array(
