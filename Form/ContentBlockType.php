@@ -12,6 +12,7 @@
 namespace Glavweb\ContentBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -32,7 +33,9 @@ class ContentBlockType extends AbstractType
         $builder
             ->add('category')
             ->add('name')
-            ->add('wysiwyg')
+            ->add('wysiwyg', ChoiceType::class, [
+                'choices' => ['true' => true, 'false' => false]
+            ])
             ->add('body')
         ;
     }
